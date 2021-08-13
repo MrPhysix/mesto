@@ -8,5 +8,9 @@
   grid-template-rows: repeat(auto-fill, minmax(362px, 1rf));
   gap: 20px 17px;
 
+  -webkit-box-pack: center;
+
+  -ms-flex-pack: center;
+
   justify-content: center;
 }
