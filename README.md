@@ -21,7 +21,7 @@
 
 ## Gh-Pages:
 
-[Russian Travel](https://mrphysix.github.io/esto/ "Кликни")
+[Mesto Russia](https://mrphysix.github.io/mesto/ "Кликни")
 
 
 ## Как пользоваться:
