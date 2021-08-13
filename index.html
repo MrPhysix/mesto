@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fff">
+  <meta name="author" content="паша">
+  <meta name="сopyright" content="2021 Mesto Russia">
+  <meta name="description" content="Место">
+  <meta name="keywords" content="путешествия, место, россия">
+
+  <meta charset="UTF-8">
+  <title>Место</title>
+
+  <link rel="stylesheet" href="./page/index.css">
+  <link rel="shorcut icon" href="./images/fav.ico">
+  <link rel="apple-touch-icon" href="./images/fav.ico">
+</head>
+
+<body class="root">
+
+  <header class="header">
+    <a href="./index.html"><img class="header__logo hover-anim " src="./images/logo.svg" alt="Место Россия"></a>
+  </header>
+  <main class="container">
+    <section class="profile">
+      <img class="profile__avatar" src="./images/avatar.jpg" alt="Фото профиля">
+      <div class="profile__info">
+        <h1 class="profile__title">Жак-Ив Кусто</h1>
+        <button class="profile__edit-button hover-anim">
+          <svg width="10" height="10" xmlns="http://www.w3.org/2000/svg" fill="none">
+            <g>
+              <title>Layer 1</title>
+              <path id="svg_1" fill="white" d="m10,1.32827l-7.39623,7.43833l-1.32075,-1.34724l7.37736,-7.41936l1.33962,1.32827zm-10,8.67173l1.96226,-0.58823l-1.37735,-1.32828l-0.58491,1.91651z" />
+            </g>
+          </svg></button>
+        <p class="profile__subtitle">Исследователь океана</p>
+      </div>
+      <button class="profile__add-button hover-anim">
+        <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <g>
+            <title>Layer 1</title>
+            <path id="svg_1" fill="white" d="m16,7.11111l-7.11111,0l0,-7.11111l-1.77778,0l0,7.11111l-7.11111,0l0,1.77778l7.11111,0l0,7.11111l1.77778,0l0,-7.11111l7.11111,0l0,-1.77778z" />
+          </g>
+        </svg>
+      </button>
+    </section>
+    <section class="elements">
+      <ul class="items">
+        <li class="item">
+          <img src="./images/1.png" alt="Что-то где-то далеко" class="item__image">
+          <div class="item__align">
+            <h2 class="item__title">Что-то где-то далеко</h2>
+            <div class="item__like hover-anim"></div>
+          </div>
+        </li>
+        <li class="item">
+          <img src="./images/2.png" alt="Что-то где-то далеко" class="item__image">
+          <div class="item__align">
+            <h2 class="item__title">Что-то где-то далеко</h2>
+            <div class="item__like hover-anim"></div>
+          </div>
+        </li>
+        <li class="item">
+          <img src="./images/3.png" alt="Что-то где-то далеко" class="item__image">
+          <div class="item__align">
+            <h2 class="item__title">Что-то где-то далеко</h2>
+            <div class="item__like hover-anim"></div>
+          </div>
+        </li>
+        <li class="item">
+          <img src="./images/4.png" alt="Что-то где-то далеко" class="item__image">
+          <div class="item__align">
+            <h2 class="item__title">Что-то где-то далеко</h2>
+            <div class="item__like hover-anim"></div>
+          </div>
+        </li>
+        <li class="item">
+          <img src="./images/5.png" alt="Что-то где-то далеко" class="item__image">
+          <div class="item__align">
+            <h2 class="item__title">Что-то где-то далеко</h2>
+            <div class="item__like hover-anim"></div>
+          </div>
+        </li>
+        <li class="item">
+          <img src="./images/1.png" alt="Что-то где-то далеко" class="item__image">
+          <div class="item__align">
+            <h2 class="item__title">Что-то где-то далеко</h2>
+            <div class="item__like hover-anim"></div>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </main>
+  <footer class="footer container">
+    <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
+  </footer>
+  <section class="pop-up">
+    <form class="pop-up__container container">
+      <div class="pop-up__close-button"></div>
+      <h3 class="pop-up__title">Редактировать&nbsp;профиль</h3>
+      <input class="pop-up__input" value="" id="name" type="text">
+      <input class="pop-up__input" value="Исследователь океана" id="description" type="text">
+      <button class="pop-up__submit-button">Сохранить</button>
+    </form>
+  </section>
+  <script src="./scripts/scripts.js"></script>
+</body>
+
+</html>

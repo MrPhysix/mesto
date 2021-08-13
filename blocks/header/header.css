@@ -1,0 +1,44 @@
+.header {
+  display: flex;
+  flex-direction: column;
+
+  margin: 45px 200px 40px;
+
+}
+
+.header::after {
+  content: '';
+  margin-top: 40px;
+  height: 1px;
+  background-color: #545454;
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 425px) {
+  .header {
+    margin: 28px 0 40px;
+  }
+
+  .header::after {
+    margin-top: 40px;
+  }
+}
+
+@media screen and (min-width: 426px) and (max-width: 768px) {
+  .header {
+    margin: 28px 0 40px;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1279px) {
+  .header {
+    margin: 28px 80px 40px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+
+  .header::after {
+    margin-top: 32px;
+  }
+}

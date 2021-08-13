@@ -1,0 +1,29 @@
+.pop-up__input {
+  margin: 0;
+  margin-bottom: 30px;
+
+  padding: 0;
+  height: 27px;
+
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+  width: 100%;
+
+  font-family: inherit;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+/*.pop-up__input,
+.pop-up__input:hover,
+.pop-up__input:active,
+.pop-up__input:focus {
+  outline: none;
+}*/
+
+.pop-up__input:nth-child(2n) {
+  margin-bottom: 0;
+}

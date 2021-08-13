@@ -1,0 +1,26 @@
+.pop-up__container {
+  background-color: #fff;
+  max-width: 430px;
+  max-height: 330px;
+
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+
+  padding: 34px 36px 37px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+@media screen and (max-width: 550px) {
+  .pop-up__container {
+    padding: 25px 22px;
+    height: 322px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .pop-up__container {
+    min-width: 280px;
+    margin: 0 20px;
+  }
+}
