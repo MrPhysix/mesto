@@ -1,16 +1,12 @@
 .item__title {
   color: #000;
-
   max-width: 100%;
-
   margin: 0;
   margin-right: 15px;
   padding: 0;
-
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-
   font-family: inherit;
   font-style: normal;
   font-weight: 900;

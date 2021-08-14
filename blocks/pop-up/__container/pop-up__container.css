@@ -1,13 +1,10 @@
 .pop-up__container {
   background-color: #fff;
   max-width: 430px;
-  max-height: 330px;
-
+  min-height: 330px;
   -webkit-box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
-
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
-
   padding: 34px 36px 37px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;

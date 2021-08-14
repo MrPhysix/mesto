@@ -1,11 +1,8 @@
 .profile__info {
   min-width: 282px;
   margin-left: 30px;
-
   display: -webkit-box;
-
   display: -ms-flexbox;
-
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
@@ -15,6 +12,7 @@
   -ms-flex-align: center;
   align-items: center;
   max-width: 70%;
+  align-items: baseline
 }
 
 @media screen and (max-width: 768px) {
@@ -23,7 +21,6 @@
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-
-    margin: 26px 0 36px;
+    margin: 26px 0 34px;
   }
 }
