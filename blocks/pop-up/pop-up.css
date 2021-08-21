@@ -8,9 +8,3 @@
   z-index: 9999;
   background: rgba(0, 0, 0, 0.5);
 }
-
-.pop-up_opened {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}

@@ -1,5 +1,5 @@
 let popUp = document.querySelector(".pop-up");
-popUp.closeButton = popUp.querySelector(".pop-up__close-button");
+let closeButton = popUp.querySelector(".pop-up__close-button");
 let editButton = document.querySelector(".profile__edit-button");
 
 //form
@@ -23,7 +23,7 @@ function popUpDisplay() {
 }
 
 editButton.addEventListener("click", popUpDisplay);
-popUp.closeButton.addEventListener("click", popUpDisplay);
+closeButton.addEventListener("click", popUpDisplay);
 
 function formSubmitHandler(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
