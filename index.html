@@ -17,8 +17,9 @@
 
 <body class="root">
   <header class="header">
-    <a href="./index.html"><img class="header__logo hover-anim " src="./images/logo.svg" alt="Место Россия"></a>
+    <a href="./index.html"><img class="header__logo" src="./images/logo.svg" alt="Место Россия"></a>
   </header>
+
   <main class="container">
     <section class="profile">
       <img class="profile__avatar" src="./images/avatar.jpg" alt="Фото профиля">
@@ -31,65 +32,53 @@
     </section>
     <section class="elements">
       <ul class="items">
-        <li class="item">
-          <img src="./images/1.png" alt="Что-то где-то далеко" class="item__image">
-          <div class="item__align">
-            <h2 class="item__title">Что-то где-то далеко</h2>
-            <button class="item__like hover-anim" type="button"></button>
-          </div>
-        </li>
-        <li class="item">
-          <img src="./images/2.png" alt="Что-то где-то далеко" class="item__image">
-          <div class="item__align">
-            <h2 class="item__title">Что-то где-то далеко</h2>
-            <button class="item__like hover-anim" type="button"></button>
-          </div>
-        </li>
-        <li class="item">
-          <img src="./images/3.png" alt="Что-то где-то далеко" class="item__image">
-          <div class="item__align">
-            <h2 class="item__title">Что-то где-то далеко</h2>
-            <button class="item__like hover-anim" type="button"></button>
-          </div>
-        </li>
-        <li class="item">
-          <img src="./images/4.png" alt="Что-то где-то далеко" class="item__image">
-          <div class="item__align">
-            <h2 class="item__title">Что-то где-то далеко</h2>
-            <button class="item__like hover-anim" type="button"></button>
-          </div>
-        </li>
-        <li class="item">
-          <img src="./images/5.png" alt="Что-то где-то далеко" class="item__image">
-          <div class="item__align">
-            <h2 class="item__title">Что-то где-то далеко</h2>
-            <button class="item__like hover-anim" type="button"></button>
-          </div>
-        </li>
-        <li class="item">
-          <img src="./images/6.png" alt="Что-то где-то далеко" class="item__image">
-          <div class="item__align">
-            <h2 class="item__title">Что-то где-то далеко</h2>
-            <button class="item__like hover-anim" type="button"></button>
-          </div>
-        </li>
+        <template id="item-template">
+          <li class="item">
+            <button class="item__delele-button hover-anim"></button>
+            <img class="item__image">
+            <h2 class="item__title"></h2>
+            <button class="item__like hover-anim"></button>
+          </li>
+        </template>
       </ul>
     </section>
   </main>
   <footer class="footer container">
     <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
   </footer>
-  <section class="pop-up">
-    <div class="pop-up__container container">
-      <button class="pop-up__close-button" type="button"></button>
-      <h3 class="pop-up__title">Редактировать&nbsp;профиль</h3>
-      <form name="edit-form">
-        <input class="pop-up__input" value="" id="name" type="text" name="name">
-        <input class="pop-up__input" value="" id="description" type="text" name="description">
-        <button class="pop-up__submit-button" type="submit">Сохранить</button>
-      </form>
+  <temple id="edit-profile" class="pop-up">
+    <div class="pop-up__wrapper">
+      <button class="pop-up__close-button hover-anim" type="button"></button>
+      <div class="pop-up__container">
+        <h3 class="pop-up__title">Редактировать&nbsp;профиль</h3>
+        <form name="edit-form" id="info-edit-form">
+          <input class="pop-up__input" value="" id="name" type="text" name="name">
+          <input class="pop-up__input" value="" id="description" type="text" name="description">
+          <button class="pop-up__submit-button" type="submit">Сохранить</button>
+        </form>
+      </div>
     </div>
-  </section>
+  </temple>
+  <temple id="add-item" class="pop-up">
+    <div class="pop-up__wrapper">
+      <button class="pop-up__close-button hover-anim" type="button"></button>
+      <div class="pop-up__container">
+        <h3 class="pop-up__title">Новое&nbsp;место</h3>
+        <form name="edit-form" id="add-item-form">
+          <input class="pop-up__input" placeholder="Название" value="" id="place" type="text" name="place">
+          <input class="pop-up__input" placeholder="Ссылка на картинку" value="" id="link" type="url" name="link">
+          <button class="pop-up__submit-button" type="submit">Создать</button>
+        </form>
+      </div>
+    </div>
+  </temple>
+  <temple id="image-open" class="pop-up ">
+    <div class="pop-up__wrapper">
+      <button class="pop-up__close-button hover-anim" type="button"></button>
+      <img class="pop-up__image" src="" alt="">
+      <h3 class="pop-up__title" id="image-open-title"></h3>
+    </div>
+  </temple>
   <script src="./scripts/scripts.js"></script>
 </body>
 

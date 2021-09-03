@@ -1,51 +1,148 @@
-let popUp = document.querySelector(".pop-up");
-let closeButton = popUp.querySelector(".pop-up__close-button");
-let editButton = document.querySelector(".profile__edit-button");
-
-//form
-let formElement = document.querySelector(".pop-up__container");
-let nameInput = formElement.querySelector("#name");
-let jobInput = formElement.querySelector("#description");
-//---
-let nameValue = document.querySelector(".profile__title");
-let jobValue = document.querySelector(".profile__subtitle");
+/*
+Пытался сделать 1 функцией заполнение каждого из попапа,
+но не понял как правильно возвращать например id из функции открытия togglePopUp
+для того чтобы потом уже передавать в обработчик события submit делать проверку и тд.
+Наставник посоветовал сделать отдельные функции(скорее тут процедуры),
+как я и поступил, но оставил одну для togglePopUp (не уверен на счет правильности, но вроде работает :D)
+*/
+const editPopUp = document.querySelector("#edit-profile");
+const addPopUp = document.querySelector("#add-item");
+const imagePopUp = document.querySelector("#image-open");
 //
-
-function popUpDisplay() {
-  nameInput.value = nameValue.textContent;
-  jobInput.value = jobValue.textContent;
-
-  if (popUp.classList.contains("pop-up_opened") === false) {
-    popUp.classList.add("pop-up_opened");
-  } else {
-    popUp.classList.remove("pop-up_opened");
+const editForm = document.querySelector("#info-edit-form");
+const addForm = document.querySelector("#add-item-form");
+//
+const profileInfo = {
+  name: document.querySelector(".profile__title"),
+  desc: document.querySelector(".profile__subtitle"),
+}
+//
+let firstInput;
+let secondInput;
+//=============================================================
+//=======================загрузка форм=========================
+function formHandler(popUp) {
+  if (popUp === editPopUp) {
+    firstInput = editForm.querySelector("#name");
+    secondInput = editForm.querySelector("#description");
+    firstInput.value = profileInfo.name.textContent;
+    secondInput.value = profileInfo.desc.textContent;
+  } else if (popUp === addPopUp) {
+    firstInput = addForm.querySelector("#place");
+    secondInput = addForm.querySelector("#link");
+    firstInput.value = "";
+    secondInput.value = "";
   }
 }
-
-editButton.addEventListener("click", popUpDisplay);
-closeButton.addEventListener("click", popUpDisplay);
-
-function formSubmitHandler(evt) {
+//=============================================================
+//=============popUp toggle для всех===========================
+const togglePopUp = (item) => {
+  const closeButton = item.querySelector(".pop-up__close-button");
+  closeButton.addEventListener("click", () => {
+    togglePopUp(item);
+  });
+  return item.classList.toggle("pop-up_opened");
+}
+//==============кнопки ========================================
+const editButton = document.querySelector(".profile__edit-button");
+editButton.addEventListener("click", () => {
+  formHandler(editPopUp);
+  togglePopUp(editPopUp);
+});
+//
+const addButton = document.querySelector(".profile__add-button");
+addButton.addEventListener("click", () => {
+  formHandler(addPopUp);
+  togglePopUp(addPopUp);
+});
+//=============================================================
+//=============submit editForm для профиля=====================
+const editFormSubmit = (evt) => {
+  const nameLength = firstInput.value.length; //орграничение длины имени
+  function isNumber(n) { // проверка строки на содержание number
+    return !isNaN(parseFloat(n)) && isFinite(n);
+  }
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-  // Так мы можем определить свою логику отправки.
-  // О том, как это делать, расскажем позже.
-
-  let nameLength = document.getElementById("name").value.length;
-  //орграничение длины имени
-
-  // Выберите элементы, куда должны быть вставлены значения полей
-  if (nameLength >= 3 && nameLength <= 70) {
-    nameValue.textContent = `${nameInput.value}`;
-    jobValue.textContent = `${jobInput.value}`;
-    // Выберите элементы, куда должны быть вставлены значения полей
-    // Вставьте новые значения с помощью textContent
-    popUpDisplay();
-  } else {
-    window.alert("Вы уверены, что вас правда так зовут? : )");
-    console.log(nameLength);
-  }
+  if (nameLength >= 2 && nameLength <= 24 && !isNumber(firstInput.value)) {
+    profileInfo.name.textContent = firstInput.value;
+    profileInfo.desc.textContent = secondInput.value;
+    togglePopUp(editPopUp);
+  } else window.alert("Вы уверены, что вас правда так зовут? : )");
 }
-
-// Прикрепляем обработчик к форме:
-// он будет следить за событием “submit” - «отправка»
-formElement.addEventListener("submit", formSubmitHandler);
+editForm.addEventListener("submit", editFormSubmit);
+//=============================================================
+//=============submit addForm для карточек=====================
+const addFormSubmit = (evt) => {
+  evt.preventDefault();
+  //
+  const placeLength = firstInput.value.length;
+  const linkLength = firstInput.value.length;
+  if (placeLength !== 0 && linkLength !== 0) {
+    addItem(firstInput.value, secondInput.value);
+    togglePopUp(addPopUp);
+  } else window.alert("Не оставляйте поля пустыми");
+}
+addForm.addEventListener("submit", addFormSubmit);
+//=============================================================
+//========загрузка контейнера и работа с item карточек=========
+const initialCards = [
+  {
+    name: "Архыз",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg"
+  },
+  {
+    name: "Челябинская область",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg"
+  },
+  {
+    name: "Иваново",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg"
+  },
+  {
+    name: "Камчатка",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg"
+  },
+  {
+    name: "Холмогорский район",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg"
+  },
+  {
+    name: "Байкал",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg"
+  }
+];
+//
+const itemsContainer = document.querySelector(".items");
+const addItem = (titleValue, imageValue) => {
+  const itemTemplate = document.querySelector("#item-template").content;
+  const itemElement = itemTemplate.querySelector(".item").cloneNode(true);
+  //-------------------------------------------------
+  const itemImage = itemElement.querySelector(".item__image");
+  itemElement.querySelector(".item__title").textContent = titleValue;
+  itemImage.src = imageValue;
+  //delete
+  const itemDeleteButton = itemElement.querySelector(".item__delele-button");
+  itemDeleteButton.addEventListener("click", (evt) => {
+    itemElement.remove();
+  });
+  //like
+  const itemLikeButton = itemElement.querySelector(".item__like");
+  itemLikeButton.addEventListener("click", (evt) => {
+    evt.target.classList.toggle("item__like_active");
+  });
+  //open img
+  itemImage.addEventListener("click", (evt) => {
+    const imageLink = imagePopUp.querySelector(".pop-up__image");
+    const imagePlace = imagePopUp.querySelector("#image-open-title");
+    imageLink.src = evt.target.src;
+    imagePlace.textContent = evt.target.nextElementSibling.textContent;
+    togglePopUp(imagePopUp);
+  });
+  itemsContainer.prepend(itemElement);
+}
+//
+initialCards.forEach((item) => {
+  addItem(item["name"], item["link"]);
+});
+//=============================================================
+//все

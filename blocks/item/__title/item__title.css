@@ -1,9 +1,9 @@
 .item__title {
   color: #000;
-  max-width: 100%;
-  margin: 0;
-  margin-right: 15px;
   padding: 0;
+  margin: auto;
+  margin-left: 20px;
+  max-width: 70%;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -11,5 +11,5 @@
   font-style: normal;
   font-weight: 900;
   font-size: 24px;
-  line-height: 29px;
+  line-height: 30px;
 }

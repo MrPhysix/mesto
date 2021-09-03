@@ -18,3 +18,12 @@
     line-height: 22px;
   }
 }
+
+#image-open > .pop-up__wrapper > .pop-up__title {
+  margin-top: 10px;
+  margin-bottom: 0;
+  color: #fff;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+}

@@ -1,19 +1,19 @@
 .pop-up__container {
+  margin: 0 auto;
   background-color: #fff;
   max-width: 430px;
   min-height: 330px;
   -webkit-box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
-  padding: 34px 36px 37px;
+  padding: 35px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  position: relative;
 }
 
 @media screen and (max-width: 550px) {
   .pop-up__container {
-    padding: 25px 22px;
+    padding: 25px;
     min-height: 330px;
   }
 }
@@ -21,6 +21,5 @@
 @media screen and (max-width: 550px) {
   .pop-up__container {
     min-width: 280px;
-    margin: 0 20px;
   }
 }
