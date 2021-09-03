@@ -59,11 +59,8 @@ addButton.addEventListener("click", () => {
 //=============submit editForm для профиля=====================
 const editFormSubmit = (evt) => {
   const nameLength = firstInput.value.length; //орграничение длины имени
-  function isNumber(n) { // проверка строки на содержание number
-    return !isNaN(parseFloat(n)) && isFinite(n);
-  }
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-  if (nameLength >= 2 && nameLength <= 24 && !isNumber(firstInput.value)) {
+  if (nameLength >= 2 && nameLength <= 24) {
     profileInfo.name.textContent = firstInput.value;
     profileInfo.desc.textContent = secondInput.value;
     togglePopUp(editPopUp);
