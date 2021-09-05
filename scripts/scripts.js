@@ -72,10 +72,10 @@ addCardForm.addEventListener("submit", addCardFormSubmit);
 //========загрузка контейнера и работа с item карточек=========
 const itemsContainer = document.querySelector(".items");
 
-let itemElement;
+
 const createCard = (titleValue, imageValue) => {
   const itemTemplate = document.querySelector("#item-template").content;
-  itemElement = itemTemplate.querySelector(".item").cloneNode(true);
+  const itemElement = itemTemplate.querySelector(".item").cloneNode(true);
   //-------------------------------------------------
   const itemImage = itemElement.querySelector(".item__image");
   itemElement.querySelector(".item__title").textContent = titleValue;
@@ -100,14 +100,18 @@ const createCard = (titleValue, imageValue) => {
     imagePlace.textContent = evt.target.nextElementSibling.textContent;
     togglePopUp(imagePopUp);
   });
+  return itemElement;
 };
-const addCard = () => {
-  itemsContainer.prepend(itemElement);
+console.log(createCard())
+
+const addCard = (titleValue, imageValue) => {
+  itemsContainer.prepend(createCard(titleValue, imageValue));
 };
 //
+
 initialCards.forEach((item) => {
   createCard(item["name"], item["link"]);
-  addCard();
+  addCard(item["name"], item["link"]);
 });
 //=============================================================
 //все
