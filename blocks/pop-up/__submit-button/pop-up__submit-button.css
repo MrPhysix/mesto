@@ -10,23 +10,21 @@
   line-height: 22px;
   text-align: center;
   border-radius: 2px;
-
   border: none;
   padding: 14px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  margin-top: 48px;
   cursor: pointer;
+  margin-top: 10px;
 }
 
-.pop-up__submit-button:hover {
+.pop-up__submit-button:hover:enabled {
   opacity: .8;
 }
 
-.pop-up__submit-button:active {
+.pop-up__submit-button:active:enabled {
   transform: scale(.98);
 }
-
 
 @media screen and (max-width: 550px) {
   .pop-up__submit-button {

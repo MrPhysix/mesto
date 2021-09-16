@@ -1,6 +1,6 @@
 .pop-up__title {
   margin: 0;
-  margin-bottom: 47px;
+  margin-bottom: 35px;
   padding: 0;
   font-family: inherit;
   font-style: normal;
@@ -9,6 +9,7 @@
   line-height: 29px;
   color: #000000;
   max-width: 100%;
+  cursor: auto;
 }
 
 @media screen and (max-width: 550px) {
@@ -19,11 +20,12 @@
   }
 }
 
-#image-open > .pop-up__wrapper > .pop-up__title {
+#image-open>.pop-up__wrapper>.pop-up__title {
   margin-top: 10px;
   margin-bottom: 0;
   color: #fff;
   font-weight: normal;
   font-size: 12px;
   line-height: 15px;
+  display: inline;
 }

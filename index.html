@@ -51,9 +51,11 @@
       <button class="pop-up__close-button hover-anim" type="button"></button>
       <div class="pop-up__container">
         <h3 class="pop-up__title">Редактировать&nbsp;профиль</h3>
-        <form name="edit-form" id="info-edit-form">
-          <input class="pop-up__input" value="" id="name" type="text" name="name">
-          <input class="pop-up__input" value="" id="description" type="text" name="description">
+        <form class="pop-up__form" name="edit" novalidate>
+          <input class="pop-up__input" type="text" id="name" name="name" minlength="2" maxlength="40" required>
+          <span id="name-error" class="pop-up__error"></span>
+          <input class="pop-up__input" type="text" id="description" name="description" minlength="2" maxlength="200" required>
+          <span id="description-error" class="pop-up__error"></span>
           <button class="pop-up__submit-button" type="submit">Сохранить</button>
         </form>
       </div>
@@ -64,15 +66,17 @@
       <button class="pop-up__close-button hover-anim" type="button"></button>
       <div class="pop-up__container">
         <h3 class="pop-up__title">Новое&nbsp;место</h3>
-        <form name="edit-form" id="add-item-form">
-          <input class="pop-up__input" placeholder="Название" value="" id="place" type="text" name="place">
-          <input class="pop-up__input" placeholder="Ссылка на картинку" value="" id="link" type="url" name="link">
+        <form class="pop-up__form" name="add" novalidate>
+          <input class="pop-up__input" placeholder="Название" type="text" id="name" name="name" minlength="2" maxlength="30" required>
+          <span id="name-error" class="pop-up__error"></span>
+          <input class="pop-up__input" placeholder="Ссылка на картинку" type="url" id="description" name="description" required>
+          <span id="description-error" class="pop-up__error"></span>
           <button class="pop-up__submit-button" type="submit">Создать</button>
         </form>
       </div>
     </div>
   </temple>
-  <temple id="image-open" class="pop-up ">
+  <temple id="image-open" class="pop-up">
     <div class="pop-up__wrapper">
       <button class="pop-up__close-button hover-anim" type="button"></button>
       <img class="pop-up__image" src="#" alt="">
@@ -81,6 +85,7 @@
   </temple>
   <script src="./scripts/initial-cards.js"></script>
   <script src="./scripts/scripts.js"></script>
+  <script src="./scripts/validation.js"></script>
 </body>
 
 </html>
