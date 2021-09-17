@@ -21,66 +21,82 @@ const profileInfo = {
   name: document.querySelector('.profile__title'),
   desc: document.querySelector('.profile__subtitle'),
 };
-
-const openForm = (form, popup) => {
-  if (form === editProfileForm) {
-    titleInput.value = profileInfo.name.textContent;
-    descriptionInput.value = profileInfo.desc.textContent;
-  } else form.reset();
-  togglePopUp(popup);
-};
-
-const togglePopUp = (item) => {
-  item.classList.toggle('pop-up_opened');
+//разбил togglePopup на две функции
+//
+const openPopup = (popup) => {
+  popup.classList.add('pop-up_opened');
   document.addEventListener('keydown', closePopupOnKey);
-  item.addEventListener('click', closePopupOnOverlay);
+  popup.addEventListener('click', closePopupOnClick);
 };
 
-//закрытие. Не получилось объединить. evt.key не срабатывает(
+const closePopup = (popup) => {
+  popup.classList.remove('pop-up_opened');
+  document.removeEventListener('keydown', closePopupOnKey);
+  popup.removeEventListener('click', closePopupOnClick);
+};
+
 const closePopupOnKey = (evt) => {
   const currentPopup = document.querySelector('.pop-up_opened');
 
   if (currentPopup && evt.key === 'Escape') {
-    togglePopUp(currentPopup);
+    closePopup(currentPopup);
     evt.target.blur(); //отменяет фокус на button
   }
 };
-//думаю как то можно это все сократить, но я не знаю как это делается с моей версткой по другому
-const closePopupOnOverlay = (evt) => {
+
+const closePopupOnClick = (evt) => {
   const currentPopup = document.querySelector('.pop-up_opened');
   const targetClass = evt.target.classList;
 
   if (evt.target === evt.currentTarget ||
     targetClass.contains('pop-up__wrapper') ||
     targetClass.contains('pop-up__close-button')) {
-    togglePopUp(currentPopup);
+    closePopup(currentPopup);
   }
 };
 
 const addCardButton = document.querySelector('.profile__add-button');
 addCardButton.addEventListener('click', () => {
-  openForm(addCardForm, addPopUp);
+  addCardForm.reset();
+  openPopup(addPopUp);
 });
+
 const editProfileButton = document.querySelector('.profile__edit-button');
 editProfileButton.addEventListener('click', () => {
-  openForm(editProfileForm, editPopUp);
+  titleInput.value = profileInfo.name.textContent;
+  descriptionInput.value = profileInfo.desc.textContent;
+  openPopup(editPopUp);
 });
 
 const editProfileFormSubmit = (evt) => {
   profileInfo.name.textContent = titleInput.value;
   profileInfo.desc.textContent = descriptionInput.value;
-  togglePopUp(editPopUp);
-  console.log('edit submit')
+  closePopup(editPopUp);
 };
 editProfileForm.addEventListener('submit', editProfileFormSubmit);
-console.log(editProfileForm)
-
+//лишнее удалил
 const addCardFormSubmit = (evt) => {
-  createCard(cardTitleInput.value, cardLinkInput.value);
   addCard(cardTitleInput.value, cardLinkInput.value);
-  togglePopUp(addPopUp);
-}
+  closePopup(addPopUp);
+};
 addCardForm.addEventListener('submit', addCardFormSubmit);
+
+//вынес колбэки. не совсем понимаю, нужно ли
+//их выносить глобально или лучше в createCard?
+const handleRemoveClick = (itemElement) => {
+  itemElement.remove();
+};
+
+const handleLikeClick = (evt) => {
+  evt.target.classList.toggle('item__like_active');
+};
+//как то опять много параметров получается
+const handleImageClick = (evt, titleValue, imageLink, imagePlace, imagePopUp) => {
+  imageLink.alt = titleValue;
+  imageLink.src = evt.target.src;
+  imagePlace.textContent = evt.target.nextElementSibling.textContent;
+  openPopup(imagePopUp);
+};
 
 const createCard = (titleValue, imageValue) => {
   const itemElement = itemTemplate.querySelector('.item').cloneNode(true);
@@ -91,21 +107,19 @@ const createCard = (titleValue, imageValue) => {
   itemImage.alt = titleValue;
 
   const itemDeleteButton = itemElement.querySelector('.item__delele-button');
-  itemDeleteButton.addEventListener('click', (evt) => {
-    itemElement.remove();
+  itemDeleteButton.addEventListener('click', () => {
+    handleRemoveClick(itemElement);
   });
 
   const itemLikeButton = itemElement.querySelector('.item__like');
   itemLikeButton.addEventListener('click', (evt) => {
-    evt.target.classList.toggle('item__like_active');
+    handleLikeClick(evt);
   });
 
   itemImage.addEventListener('click', (evt) => {
-    imageLink.alt = titleValue;
-    imageLink.src = evt.target.src;
-    imagePlace.textContent = evt.target.nextElementSibling.textContent;
-    togglePopUp(imagePopUp);
+    handleImageClick(evt, titleValue, imageLink, imagePlace, imagePopUp);
   });
+
   return itemElement;
 };
 
@@ -114,5 +128,5 @@ const addCard = (titleValue, imageValue) => {
 };
 
 initialCards.forEach((item) => {
-  addCard(item['name'], item['link']);
+  addCard(item.name, item.link);
 });
