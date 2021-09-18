@@ -14,25 +14,27 @@ const cardLinkInput = addCardForm.elements.description;
 const itemTemplate = document.querySelector('#item-template').content;
 const itemsContainer = document.querySelector('.items');
 //
-const imageLink = imagePopUp.querySelector('.pop-up__image');
-const imagePlace = imagePopUp.querySelector('#image-open-title');
+const previewImage = imagePopUp.querySelector('.pop-up__image');
+const previewImageTitle = imagePopUp.querySelector('#image-open-title');
 
 const profileInfo = {
   name: document.querySelector('.profile__title'),
   desc: document.querySelector('.profile__subtitle'),
 };
-//разбил togglePopup на две функции
 //
 const openPopup = (popup) => {
   popup.classList.add('pop-up_opened');
   document.addEventListener('keydown', closePopupOnKey);
   popup.addEventListener('click', closePopupOnClick);
+  //с кликом не совсем понял, слушатель submit привязан к конкретной форме,
+  // которая определена (editProfileForm = document.forms.edit - например)
+  //блок с классом 'pop-up_opened' при загрузке определить нельзя (т.к класса нет)
+  //насколько я понимаю, addEventListener нужно оставить тут (по примеру с  слушателями в createCard)
 };
 
 const closePopup = (popup) => {
   popup.classList.remove('pop-up_opened');
   document.removeEventListener('keydown', closePopupOnKey);
-  popup.removeEventListener('click', closePopupOnClick);
 };
 
 const closePopupOnKey = (evt) => {
@@ -58,6 +60,8 @@ const closePopupOnClick = (evt) => {
 const addCardButton = document.querySelector('.profile__add-button');
 addCardButton.addEventListener('click', () => {
   addCardForm.reset();
+  disableSubmitButton(addPopUp.querySelector('.pop-up__submit-button'), 'pop-up__submit-button_disabled');
+  //наверно по-хорошему нужно переделать кнопки и сделать одну масштабируемую фунцкию
   openPopup(addPopUp);
 });
 
@@ -74,15 +78,14 @@ const editProfileFormSubmit = (evt) => {
   closePopup(editPopUp);
 };
 editProfileForm.addEventListener('submit', editProfileFormSubmit);
-//лишнее удалил
+
 const addCardFormSubmit = (evt) => {
   addCard(cardTitleInput.value, cardLinkInput.value);
   closePopup(addPopUp);
 };
 addCardForm.addEventListener('submit', addCardFormSubmit);
 
-//вынес колбэки. не совсем понимаю, нужно ли
-//их выносить глобально или лучше в createCard?
+
 const handleRemoveClick = (itemElement) => {
   itemElement.remove();
 };
@@ -90,11 +93,11 @@ const handleRemoveClick = (itemElement) => {
 const handleLikeClick = (evt) => {
   evt.target.classList.toggle('item__like_active');
 };
-//как то опять много параметров получается
-const handleImageClick = (evt, titleValue, imageLink, imagePlace, imagePopUp) => {
-  imageLink.alt = titleValue;
-  imageLink.src = evt.target.src;
-  imagePlace.textContent = evt.target.nextElementSibling.textContent;
+//вроде так с параметрами
+const handleImageClick = (evt, titleValue, imagePopUp) => {
+  previewImage.alt = titleValue;
+  previewImage.src = evt.target.src;
+  previewImageTitle.textContent = titleValue; //+
   openPopup(imagePopUp);
 };
 
@@ -117,7 +120,7 @@ const createCard = (titleValue, imageValue) => {
   });
 
   itemImage.addEventListener('click', (evt) => {
-    handleImageClick(evt, titleValue, imageLink, imagePlace, imagePopUp);
+    handleImageClick(evt, titleValue, imagePopUp);
   });
 
   return itemElement;
