@@ -21,15 +21,10 @@ const profileInfo = {
   name: document.querySelector('.profile__title'),
   desc: document.querySelector('.profile__subtitle'),
 };
-//
+
 const openPopup = (popup) => {
   popup.classList.add('pop-up_opened');
   document.addEventListener('keydown', closePopupOnKey);
-  popup.addEventListener('click', closePopupOnClick);
-  //с кликом не совсем понял, слушатель submit привязан к конкретной форме,
-  // которая определена (editProfileForm = document.forms.edit - например)
-  //блок с классом 'pop-up_opened' при загрузке определить нельзя (т.к класса нет)
-  //насколько я понимаю, addEventListener нужно оставить тут (по примеру с  слушателями в createCard)
 };
 
 const closePopup = (popup) => {
@@ -56,12 +51,14 @@ const closePopupOnClick = (evt) => {
     closePopup(currentPopup);
   }
 };
+addPopUp.addEventListener('click', closePopupOnClick);
+editPopUp.addEventListener('click', closePopupOnClick);
+imagePopUp.addEventListener('click', closePopupOnClick);
 
 const addCardButton = document.querySelector('.profile__add-button');
 addCardButton.addEventListener('click', () => {
   addCardForm.reset();
   disableSubmitButton(addPopUp.querySelector('.pop-up__submit-button'), 'pop-up__submit-button_disabled');
-  //наверно по-хорошему нужно переделать кнопки и сделать одну масштабируемую фунцкию
   openPopup(addPopUp);
 });
 
@@ -93,7 +90,7 @@ const handleRemoveClick = (itemElement) => {
 const handleLikeClick = (evt) => {
   evt.target.classList.toggle('item__like_active');
 };
-//вроде так с параметрами
+
 const handleImageClick = (evt, titleValue, imagePopUp) => {
   previewImage.alt = titleValue;
   previewImage.src = evt.target.src;
