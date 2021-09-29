@@ -32,14 +32,7 @@
     </section>
     <section class="elements">
       <ul class="items">
-        <template id="item-template">
-          <li class="item">
-            <button class="item__delele-button hover-anim"></button>
-            <img class="item__image">
-            <h2 class="item__title"></h2>
-            <button class="item__like hover-anim"></button>
-          </li>
-        </template>
+
       </ul>
     </section>
   </main>
@@ -83,9 +76,18 @@
       <h3 class="pop-up__title" id="image-open-title"></h3>
     </div>
   </div>
-  <script src="./scripts/initial-cards.js"></script>
-  <script src="./scripts/validation.js"></script>
-  <script src="./scripts/script.js"></script>
+  <template id="item-template">
+    <li class="item">
+      <button class="item__delele-button hover-anim"></button>
+      <img class="item__image">
+      <h2 class="item__title"></h2>
+      <button class="item__like hover-anim"></button>
+    </li>
+  </template>
+  <script type="module" src="./scripts/Cards.js"></script>
+  <script type="module" src="./scripts/FormValidator.js"></script>
+  <script type="module" src="./scripts/utils.js"></script>
+  <script type="module" src="./scripts/script.js"></script>
 </body>
 
 </html>
