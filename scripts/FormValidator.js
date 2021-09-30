@@ -72,11 +72,11 @@ class FormValidator {
   _toggleButton() {
     this._hasInvalidInput() ? this._disableSubmitButton() : this._enableSubmitButton();
   }
-  //отменить дефолт сабмит. навесить чиклом на инпуты -  чекВалид и тогл бтн. отключить кнопку
-  // !думаю можно проще
+
   _setEventListeners() {
     this._formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
+      this._disableSubmitButton();
     });
 
     this._inputList.forEach((input) => {
