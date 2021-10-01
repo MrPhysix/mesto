@@ -1,5 +1,4 @@
-//esc key
-// disableSubmitButton add
+//
 import {
   addPopUp,
   editPopUp,
@@ -12,12 +11,11 @@ import {
   descriptionInput,
   cardTitleInput,
   cardLinkInput,
+  itemsContainer,
+  initialCards,
+  validationConfig,
 
 } from './utils.js';
-
-import {
-  addCard,
-} from './Cards.js'
 
 const profileInfo = {
   name: document.querySelector('.profile__title'),
@@ -25,34 +23,31 @@ const profileInfo = {
 };
 //
 export const closePopupOnKey = (evt) => {
-  const currentPopup = document.querySelector('.pop-up_opened');
-
-  if (currentPopup && evt.key === 'Escape') {
-    closePopup(currentPopup);
+  if (evt.key === 'Escape') {
+    const currentPopup = document.querySelector('.pop-up_opened');
+    currentPopup && closePopup(currentPopup); // не знал что так можно
     evt.target.blur(); //отменяет фокус на button
   }
-  console.log(currentPopup);
 };
 
-const openPopup = (popup) => {
+export const openPopup = (popup) => {
   popup.classList.add('pop-up_opened');
   document.addEventListener('keydown', closePopupOnKey);
 
 };
 
-const closePopup = (popup) => {
+export const closePopup = (popup) => {
   popup.classList.remove('pop-up_opened');
   document.removeEventListener('keydown', closePopupOnKey);
 };
 //
 const closePopupOnClick = (evt) => {
-  const currentPopup = document.querySelector('.pop-up_opened');
   const targetClass = evt.target.classList;
 
   if (evt.target === evt.currentTarget ||
     targetClass.contains('pop-up__wrapper') ||
     targetClass.contains('pop-up__close-button')) {
-    closePopup(currentPopup);
+    closePopup(evt.currentTarget); //тут не додумал, спасибо)
   }
 };
 addPopUp.addEventListener('click', closePopupOnClick);
@@ -87,3 +82,34 @@ const addCardFormSubmit = (evt) => {
   closePopup(addPopUp);
 };
 addCardForm.addEventListener('submit', addCardFormSubmit);
+//карточки рендер
+import {
+  Card,
+} from './Cards.js'
+
+const createCard = (data) => {
+  const card = new Card(data, '#item-template');
+  return card.generateCard();
+}
+
+export const addCard = (data) => {
+  const cardElement = createCard(data);
+  itemsContainer.prepend(cardElement);
+}
+
+initialCards.forEach((item) => {
+  addCard(item);
+});
+//валидация
+import {
+  FormValidator,
+} from './FormValidator.js';
+
+const validationHandler = (config) => {
+  const formList = document.querySelectorAll(config.formSelector)
+  formList.forEach((form) => {
+    new FormValidator(validationConfig, form);
+  })
+}
+validationHandler(validationConfig);
+//
