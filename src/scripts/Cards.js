@@ -1,24 +1,16 @@
-//перенести функции в script.js
-
 import {
-  initialCards,
-  popupCloseBtn,
-  addCardForm,
-  previewTitle,
-  previewImage,
   previewPopup,
-  itemsContainer,
-
 } from './utils.js';
 
-import {
-  openPopup,
-} from './script.js'
+import PopupWithImage from './PopupWithImage.js';
 
-export class Card {
-  constructor(data, cardSelector) {
-    this._title = data.name;
-    this._image = data.link;
+export default class Card {
+  constructor({
+    name,
+    description,
+  }, cardSelector) {
+    this._title = name;
+    this._image = description;
     this._isLiked = false;
     this._cardSelector = cardSelector;
   }
@@ -42,10 +34,10 @@ export class Card {
     this._element.remove();
   }
 
-  _handleOpenPopup() {
-    previewImage.src = this._image;
-    previewTitle.textContent = this._title;
-    openPopup(previewPopup);
+  _handleCardClick() {
+    const handlePopup = new PopupWithImage(previewPopup, this._title, this._image);
+    handlePopup.setEventListeners();
+    handlePopup.open();
   }
 
   _setEventListeners() {
@@ -53,7 +45,7 @@ export class Card {
     const itemLikeBtn = this._element.querySelector('.item__like');
     const itemRemoveBtn = this._element.querySelector('.item__delele-button');
 
-    itemImage.addEventListener('click', () => this._handleOpenPopup());
+    itemImage.addEventListener('click', () => this._handleCardClick());
     itemLikeBtn.addEventListener('click', (evt) => this._like(evt));
     itemRemoveBtn.addEventListener('click', () => this._remove());
   }
