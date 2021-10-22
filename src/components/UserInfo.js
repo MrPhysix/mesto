@@ -1,7 +1,3 @@
-import {
-  profileInfo
-} from './utils.js';
-
 export default class UserInfo {
   constructor({
     name,
@@ -18,7 +14,7 @@ export default class UserInfo {
   }
 
   setUserInfo(info) {
-    profileInfo.name.textContent = info.name;
-    profileInfo.description.textContent = info.description;
+    this._name.textContent = info.name;
+    this._description.textContent = info.description;
   }
 }

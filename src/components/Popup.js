@@ -24,6 +24,7 @@ export default class Popup {
       const popupCloseOverlay = evt.target === evt.currentTarget ||
         evt.target.classList.contains('pop-up__wrapper') ||
         evt.target.classList.contains('pop-up__close-button');
+
       popupCloseOverlay && this.close();
     });
 

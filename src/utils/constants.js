@@ -5,8 +5,8 @@ export const previewPopup = document.querySelector('#image-open');
 export const popupOpened = document.querySelector('.pop-up-opened');
 export const popupElement = document.querySelector('.pop-up');
 //preview
-export const previewImage = document.querySelector('.pop-up__image');
-export const previewTitle = document.querySelector('#image-open-title');
+// export const previewImage = document.querySelector('.pop-up__image');
+// export const previewTitle = document.querySelector('#image-open-title');
 //
 export const itemsContainer = document.querySelector('.items');
 //buttons
