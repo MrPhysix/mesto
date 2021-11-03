@@ -1,7 +1,6 @@
 .item__image {
   border-radius: 10px 10px 0px 0px;
   width: 100%;
-  -o-object-fit: cover;
   object-fit: cover;
   height: 282px;
   margin-bottom: 25px;

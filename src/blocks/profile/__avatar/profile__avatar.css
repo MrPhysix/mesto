@@ -1,4 +1,23 @@
 .profile__avatar {
-  max-width: 120px;
-  border-radius: 50%;
+  /* max-width: 120px;
+  border-radius: 50%; */
+  height: 120px;
+  width: 100%;
+  object-fit: cover;
+  background-color: transparent;
 }
+
+/*
+.profile__avatar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  border-radius: 50%;
+  height: 100%;
+  width: 100%;
+  background-color: red;
+  opacity: .8;
+
+} */

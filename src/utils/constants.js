@@ -1,64 +1,29 @@
 //popup
+export const confirmPopUp = document.querySelector('#confirm');
 export const editPopUp = document.querySelector('#edit-profile');
 export const addPopUp = document.querySelector('#add-item');
 export const previewPopup = document.querySelector('#image-open');
+export const editAvatarPopUp = document.querySelector('#avatar-update');
 export const popupOpened = document.querySelector('.pop-up-opened');
 export const popupElement = document.querySelector('.pop-up');
-//preview
-// export const previewImage = document.querySelector('.pop-up__image');
-// export const previewTitle = document.querySelector('#image-open-title');
 //
 export const itemsContainer = document.querySelector('.items');
 //buttons
 export const popupCloseBtn = document.querySelector('.pop-up__close-button');
 export const editProfileButton = document.querySelector('.profile__edit-button');
 export const addCardButton = document.querySelector('.profile__add-button');
+export const editAvatarButton = document.querySelector('.profile__avatar-button');
 //
 export const profileInfo = {
   name: document.querySelector('.profile__title'),
-  description: document.querySelector('.profile__subtitle'),
+  about: document.querySelector('.profile__subtitle'),
+  avatar: document.querySelector('.profile__avatar'),
+  id: null,
 };
-//  images
-const arkhyzImage = new URL('../images/arkhyz.jpeg',
-  import.meta.url);
-const chelyabinskImage = new URL('../images/chelyabinsk-oblast.jpeg',
-  import.meta.url);
-const ivanovoImage = new URL('../images/ivanovo.jpeg',
-  import.meta.url);
-const kamchatkaImage = new URL('../images/kamchatka.jpeg',
-  import.meta.url);
-const kholmogorskyImage = new URL('../images/kholmogorsky-rayon.jpeg',
-  import.meta.url);
-const baikalImage = new URL('../images/baikal.jpeg',
-  import.meta.url);
-
-
-export const initialCards = [{
-    name: "Архыз",
-    description: arkhyzImage
-  },
-  {
-    name: "Челябинская область",
-    description: chelyabinskImage
-  },
-  {
-    name: "Иваново",
-    description: ivanovoImage
-  },
-  {
-    name: "Камчатка",
-    description: kamchatkaImage
-  },
-  {
-    name: "Холмогорский район",
-    description: kholmogorskyImage
-  },
-  {
-    name: "Байкал",
-    description: baikalImage
-  }
-];
 //
+export const avatarDefault = new URL('../images/avatar.svg',
+  import.meta.url);
+
 export const validationConfig = {
   formSelector: '.pop-up__form',
   inputSelector: '.pop-up__input',

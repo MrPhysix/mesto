@@ -19,11 +19,13 @@
 
   <main class="container">
     <section class="profile">
-      <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Фото профиля">
+      <button class="profile__avatar-button">
+        <div class="profile__cover"></div>
+        <img class="profile__avatar" src="<%=require('./images/avatar.svg')%>" alt="Фото профиля"></button>
       <div class="profile__info">
-        <h1 class="profile__title">Жак-Ив Кусто</h1>
+        <h1 class="profile__title"></h1>
         <button class="profile__edit-button hover-anim" type="button"></button>
-        <p class="profile__subtitle">Исследователь океана</p>
+        <p class="profile__subtitle"></p>
       </div>
       <button class="profile__add-button hover-anim" type="button"></button>
     </section>
@@ -44,7 +46,7 @@
         <form class="pop-up__form" name="edit" novalidate>
           <input class="pop-up__input" type="text" id="name" name="name" minlength="2" maxlength="40" required>
           <span id="name-error" class="pop-up__error"></span>
-          <input class="pop-up__input" type="text" id="description" name="description" minlength="2" maxlength="200" required>
+          <input class="pop-up__input" type="text" id="description" name="about" minlength="2" maxlength="200" required>
           <span id="description-error" class="pop-up__error"></span>
           <button class="pop-up__submit-button" type="submit">Сохранить</button>
         </form>
@@ -59,7 +61,7 @@
         <form class="pop-up__form" name="add" novalidate>
           <input class="pop-up__input" placeholder="Название" type="text" id="title" name="name" minlength="2" maxlength="30" required>
           <span id="title-error" class="pop-up__error"></span>
-          <input class="pop-up__input" placeholder="Ссылка на картинку" type="url" id="link" name="description" required>
+          <input class="pop-up__input" placeholder="Ссылка на картинку" type="url" id="link" name="link" required>
           <span id="link-error" class="pop-up__error"></span>
           <button class="pop-up__submit-button" type="submit">Создать</button>
         </form>
@@ -73,12 +75,41 @@
       <h3 class="pop-up__title" id="image-open-title"></h3>
     </div>
   </div>
+  <div id="confirm" class="pop-up">
+    <div class="pop-up__wrapper">
+      <button class="pop-up__close-button hover-anim" type="button"></button>
+      <div class="pop-up__container">
+        <h3 class="pop-up__title">Вы&nbsp;уверены&quest;</h3>
+        <form name="confirm" novalidate>
+          <button class="pop-up__submit-button" type="button">Да</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div id="avatar-update" class="pop-up">
+    <div class="pop-up__wrapper">
+      <button class="pop-up__close-button hover-anim" type="button"></button>
+      <div class="pop-up__container">
+        <h3 class="pop-up__title">Обновить&nbsp;аватар</h3>
+        <form class="pop-up__form" name="avatar" novalidate>
+          <input class="pop-up__input" placeholder="Ссылка на картинку" type="url" id="link" name="avatar" required>
+          <span id="link-error" class="pop-up__error"></span>
+          <button class="pop-up__submit-button" type="submit">Сохранить</button>
+        </form>
+      </div>
+    </div>
+  </div>
   <template id="item-template">
     <li class="item">
       <button class="item__delele-button hover-anim"></button>
       <img class="item__image">
-      <h2 class="item__title"></h2>
-      <button class="item__like hover-anim"></button>
+      <div class="item__align">
+        <h2 class="item__title"></h2>
+        <div class="likes__align ">
+          <button class="item__like hover-anim"></button>
+          <i class="likes__counter">0</i>
+      </div>
+      </div>
     </li>
   </template>
 </body>
