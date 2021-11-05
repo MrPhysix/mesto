@@ -8,6 +8,14 @@ export default class Section {
     this._container = cardSelector;
   }
 
+  getData({
+    data,
+    renderer
+  }) {
+    this._renderedItems = data;
+    this._renderer = renderer;
+  }
+
   addItem(element) {
     this._container.prepend(element);
   }

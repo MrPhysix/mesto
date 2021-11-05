@@ -17,7 +17,6 @@ export default class Card {
     this._owner = owner;
 
     this._isLiked = this.isCardLiked();
-    console.log(this._isLiked);
     this._likesAmount = this._likes.length;
     this._element = this._getTemplate();
     this._handleCardClick = handleCardClick; //
@@ -41,20 +40,20 @@ export default class Card {
       .content
       .children[0]
       .cloneNode(true);
-
+    if (this._owner._id === this._userId) {
+      cardElement.querySelector('.item__delele-button').style.visibility = "visible";
+    }
+    if (this._isLiked) {
+      cardElement.querySelector('.item__like').classList.toggle('item__like_active');
+    }
     return cardElement;
   }
 
   _like(evt) {
-    return new Promise((resolve, reject) => {
-        this._handleLikeCounter(this, this._id);
-        resolve();
-      })
-      .then(res => {
-        this._isLiked = !this._isLiked;
-        console.log('now liked is ' + this._isLiked);
-        evt.target.classList.toggle('item__like_active');
-      });
+    this._handleLikeCounter(this, this._id);
+    this._isLiked = !this._isLiked;
+    console.log('now liked is ' + this._isLiked);
+    evt.target.classList.toggle('item__like_active');
   }
 
   _remove() {
@@ -65,7 +64,7 @@ export default class Card {
     this._itemImage.addEventListener('click', () => this._handleCardClick(this._title, this._image));
     this._itemLikeBtn.addEventListener('click', (evt) => this._like(evt));
     this._itemRemoveBtn.addEventListener('click', () => {
-      this._handleRemoveClick(this, this._id);
+      this._handleRemoveClick(this);
     });
   }
 

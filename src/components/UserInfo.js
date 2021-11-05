@@ -1,4 +1,3 @@
-const profileSection = document.querySelector('.profile');
 export default class UserInfo {
   constructor({
     name,
@@ -10,36 +9,18 @@ export default class UserInfo {
     this._avatar = avatar;
   }
   getUserInfo() {
+    return {
+      name: document.querySelector('.profile__title'),
+      about: document.querySelector('.profile__subtitle'),
+      avatar: document.querySelector('.profile__avatar'),
+    }
     console.log('GET user info from API');
   }
 
   setUserInfo(info) {
     console.log('SET user info from API');
-    this._name.textContent = info.name;
-    this._about.textContent = info.about;
-    this._avatar.src = info.avatar;
+    if (info.name) this._name.textContent = info.name;
+    if (info.about) this._about.textContent = info.about;
+    if (info.name) this._avatar.src = info.avatar;
   }
 }
-// // const profileSection = document.querySelector('.profile');
-//
-// fetch('https://mesto.nomoreparties.co/v1/cohort-29/users/me', {
-//     headers: {
-//       authorization: '2181393e-dcbd-4ec4-b795-5358ac072ebb'
-//     }
-//   })
-//   .then(res => res.json())
-//   .then((result) => {
-//     profileInfo.name.textContent = result.name;
-//     profileInfo.description.textContent = result.about;
-//     profileInfo.avatar.src = result.avatar;
-//     profileInfo.id = result._id;
-//   })
-//   .catch((err) => {
-//     profileInfo.avatar.src = avatarDefault;
-//     profileInfo.name.textContent = "User";
-//     profileInfo.description.textContent = "Not found";
-//     profileInfo.id = null;
-//   })
-//   .finally(() => {
-//     profileSection.style.visibility = "visible";
-//   });

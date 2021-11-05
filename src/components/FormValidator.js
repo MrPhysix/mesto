@@ -1,6 +1,6 @@
 //перекинуть инпутелемент аргументом через неск методов - done
 
-export class FormValidator {
+export default class FormValidator {
   constructor(config, form) {
     this._formSelector = config.formSelector;
     this._inputSelector = config.inputSelector;
@@ -13,7 +13,6 @@ export class FormValidator {
     this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
     this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
     //
-    this.enableValidation();
   }
 
   _showInputError(inputElement) {
