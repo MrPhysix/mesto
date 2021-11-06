@@ -8,19 +8,12 @@ export default class Section {
     this._container = cardSelector;
   }
 
-  getData({
-    data,
-    renderer
-  }) {
-    this._renderedItems = data;
-    this._renderer = renderer;
-  }
-
   addItem(element) {
     this._container.prepend(element);
   }
 
-  renderItems() {
+  renderItems(data) {
+    this._renderedItems = data;
     this._renderedItems.reverse().forEach((item) => {
       this._renderer(item);
     });

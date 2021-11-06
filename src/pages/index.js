@@ -28,6 +28,7 @@ import {
   confirmPopUp,
   editAvatarPopUp,
   editAvatarButton,
+  submitButton,
 
 } from '../utils/constants.js';
 
@@ -54,13 +55,9 @@ const handleCardClick = (title, image) => {
 
 const popupAddCard = new PopupWithForm(addPopUp, () => {
   const data = popupAddCard._getInputValues();
-  const button = popupAddCard._popupElement.querySelector('.pop-up__submit-button');
-  const buttonInitialText = button.textContent;
-  renderLoading(button, buttonInitialText, true);
+  const buttonInitialText = submitButton(popupAddCard).textContent;
+  renderLoading(submitButton(popupAddCard), buttonInitialText, true);
   api.addCard(data)
-    .then(res => {
-      return res.json();
-    })
     .then(res => {
       return createCard(res);
     })
@@ -69,9 +66,9 @@ const popupAddCard = new PopupWithForm(addPopUp, () => {
       cardList.addItem(res);
     })
     .then(res => {
-      renderLoading(button, buttonInitialText, false);
       popupAddCard.close();
     })
+    .finally(res => renderLoading(submitButton(popupAddCard), buttonInitialText, false))
     .catch(err => console.log(err))
 });
 popupAddCard.setEventListeners();
@@ -87,28 +84,25 @@ const handleLikeCounter = (card, id) => {
     .then(res => {
       counter.textContent = res.likes.length;
     })
-    .then(res => console.log('refresh element'))
     .catch(err => console.log(err));
 }
 //
+//  handleRemoveClick
 //
 const popupDeleteCard = new PopupWithConfirmation(confirmPopUp);
+popupDeleteCard.setEventListeners();
 
 const handleRemoveClick = (card) => {
-  new Promise((resolve, reject) => {
-      console.log('promise');
-      popupDeleteCard.getSubmitCallback(() => api.removeItem(card._id)
-        .then(res => {
-          card._remove();
-        })
-        .then(res => popupDeleteCard.close())
-        .catch(err => console.log(err))
-      );
-      console.log(popupDeleteCard);
-      resolve();
-    })
-    .then(res => popupDeleteCard.setEventListeners()) //в глобальной никак не навесить из за getSubmitCallback
-    .then(res => popupDeleteCard.open())
+  popupDeleteCard.setSubmitCallback(() => {
+    console.log('SubmitCallback');
+    api.removeItem(card._id)
+      .then(res => {
+        card._remove();
+        popupDeleteCard.close();
+      })
+      .catch(err => console.log(err))
+  });
+  popupDeleteCard.open();
 };
 //
 const createCard = (values) => {
@@ -117,41 +111,33 @@ const createCard = (values) => {
   return cardElement;
 };
 
-const cardList = new Section({}, itemsContainer); //ну только если так
+const cardList = new Section({
+    data: null,
+    renderer: (item) => {
+      const cardElement = createCard(item);
+      cardList.addItem(cardElement);
+    }
+  },
+  itemsContainer);
 
-api.getInitialCards()
-  .then((inputdata) => {
-    cardList.getData({
-      data: inputdata,
-      renderer: (item) => {
-        const cardElement = createCard(item);
-        cardList.addItem(cardElement);
-      }
-    })
-    return cardList
-  })
-  .then((res) => {
-    Promise.all([api.getUserInfo()])
-      .then(() => {
-        res.renderItems();
-      })
-  })
-  .catch(err => console.log(err));
-//
-//  set User Info
-//
 const userInfo = new UserInfo(profileInfo);
-api.getUserInfo()
-  .then((data) => {
-    userInfo.setUserInfo(data);
-    profileInfo.id = data._id;
-  })
-  .catch(err => console.log(err));
+
+//
+//  set User Info & renderItems
+//
+
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(data => {
+    userInfo.setUserInfo(data[0]);
+    profileInfo.id = data[0]._id;
+    cardList.renderItems(data[1])
+  }).catch(err => console.log(err));
+
 //
 //  с формой изменения user info
 //
 const openEditForm = () => {
-  const userData = userInfo.getUserInfo();
+  const userData = userInfo.getUserInfo(); // это не api
   popupEditProfile.setInputValues(userData);
   popupEditProfile.open();
 };
@@ -163,26 +149,25 @@ editAvatarButton.addEventListener('click', (evt) => {
 
 const popupAvatar = new PopupWithForm(editAvatarPopUp, () => {
   const inputUserAvatar = popupAvatar._getInputValues().avatar;
-  const button = popupAvatar._popupElement.querySelector('.pop-up__submit-button');
-  const buttonInitialText = button.textContent;
-  renderLoading(button, buttonInitialText, true);
+  const buttonInitialText = submitButton(popupAvatar).textContent;
+  renderLoading(submitButton(popupAvatar), buttonInitialText, true);
   api.changeUserAvatar(inputUserAvatar)
     .then(res => {
       profileInfo.avatar.src = inputUserAvatar
     })
     .then(res => {
-      renderLoading(button, buttonInitialText, false);
       popupAvatar.close();
     })
+    .finally(res => renderLoading(submitButton(popupAvatar), buttonInitialText, false))
     .catch(err => console.log(err));
 });
 popupAvatar.setEventListeners();
 
 const popupEditProfile = new PopupWithForm(editPopUp, () => {
   const inputUserInfo = popupEditProfile._getInputValues();
-  const button = popupEditProfile._popupElement.querySelector('.pop-up__submit-button');
-  const buttonInitialText = button.textContent;
-  renderLoading(button, buttonInitialText, true);
+
+  const buttonInitialText = submitButton(popupEditProfile).textContent;
+  renderLoading(submitButton(popupEditProfile), buttonInitialText, true);
   api.setUserInfo(inputUserInfo).then(res => {
       userInfo.setUserInfo({
         name: inputUserInfo.name,
@@ -191,11 +176,10 @@ const popupEditProfile = new PopupWithForm(editPopUp, () => {
       });
     })
     .then(res => {
-      renderLoading(button, buttonInitialText, false);
       popupEditProfile.close();
     })
+    .finally(res => renderLoading(submitButton(popupEditProfile), buttonInitialText, false))
     .catch(err => console.log(err));
-
 });
 popupEditProfile.setEventListeners();
 //

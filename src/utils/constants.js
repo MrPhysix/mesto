@@ -7,6 +7,10 @@ export const editAvatarPopUp = document.querySelector('#avatar-update');
 export const popupOpened = document.querySelector('.pop-up-opened');
 export const popupElement = document.querySelector('.pop-up');
 //
+export const submitButton = (popup) => {
+  return popup._popupElement.querySelector('.pop-up__submit-button');
+};
+//
 export const itemsContainer = document.querySelector('.items');
 //buttons
 export const popupCloseBtn = document.querySelector('.pop-up__close-button');

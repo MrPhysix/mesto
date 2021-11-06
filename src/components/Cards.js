@@ -1,5 +1,3 @@
-import PopupWithImage from './PopupWithImage.js';
-
 export default class Card {
   constructor({
     name,
@@ -26,12 +24,9 @@ export default class Card {
     this._itemLikeBtn = this._element.querySelector('.item__like');
     this._itemRemoveBtn = this._element.querySelector('.item__delele-button');
     this._likeCounter = this._element.querySelector('.likes__counter');
-
-    //console.log(this);
   }
 
   isCardLiked() {
-    //  console.log(Boolean(this._likes.find(item => item._owner._id === this._userId)));
     return Boolean(this._likes.find(item => item._id === this._userId));
   }
   _getTemplate() {
@@ -40,6 +35,7 @@ export default class Card {
       .content
       .children[0]
       .cloneNode(true);
+
     if (this._owner._id === this._userId) {
       cardElement.querySelector('.item__delele-button').style.visibility = "visible";
     }
@@ -50,10 +46,10 @@ export default class Card {
   }
 
   _like(evt) {
-    this._handleLikeCounter(this, this._id);
     this._isLiked = !this._isLiked;
     console.log('now liked is ' + this._isLiked);
     evt.target.classList.toggle('item__like_active');
+    this._handleLikeCounter(this, this._id);
   }
 
   _remove() {

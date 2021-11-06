@@ -9,7 +9,7 @@ export default class PopupWithForm extends Popup {
   }
   _getInputValues() {
     this._formValues = {};
-    this._inputList.forEach((input, index) => {
+    this._inputList.forEach(input => {
       this._formValues[input.name] = input.value;
     });
     return this._formValues;
@@ -26,8 +26,12 @@ export default class PopupWithForm extends Popup {
     super.close();
     this._form.reset();
   }
+
   setEventListeners() {
     super.setEventListeners();
+    // было //
     this._form.addEventListener('submit', this._submitCallback);
+    // но нужно //
+    //this._form.addEventListener('submit', this._submitCallback(this._getInputValues)); //ну тогда нарушается последовательность в Callback Queue и в результат _getInputValues() попадет объект с пустыми свойствами. Или я не знаю как правильно аргумент в параметр сделать
   }
 }

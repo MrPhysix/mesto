@@ -3,13 +3,7 @@ export default class Api {
     this._url = config.baseUrl;
     this._headers = config.headers;
   }
-  // .then(res => {
-  //   if (res.ok) {
-  //     return res.json()
-  //   }
-  //   return Promise.reject(`Ошибка: ${res.status}`);
-  // })
-  _resultCheck(res) {
+  _checkResult(res) {
     if (res.ok) {
       return res.json()
     }
@@ -20,13 +14,14 @@ export default class Api {
     return fetch(`${this._url}/cards`, {
         headers: this._headers
       })
-      .then(res => this._resultCheck(res));
+      .then(res => this._checkResult(res));
   }
 
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
-      headers: this._headers
-    }).then(res => this._resultCheck(res));
+        headers: this._headers
+      })
+      .then(res => this._checkResult(res));
   }
 
   setUserInfo(info) {
@@ -37,25 +32,27 @@ export default class Api {
         name: info.name,
         about: info.about
       })
-    });
+    }).then(res => this._checkResult(res));
   }
 
   addCard(data) {
     return fetch(`${this._url}/cards`, {
-      method: 'POST',
-      headers: this._headers,
-      body: JSON.stringify({
-        name: data.name,
-        link: data.link
+        method: 'POST',
+        headers: this._headers,
+        body: JSON.stringify({
+          name: data.name,
+          link: data.link
+        })
       })
-    });
+      .then(res => this._checkResult(res));
   }
 
   removeItem(id) {
     return fetch(`${this._url}/cards/${id}`, {
-      method: 'DELETE',
-      headers: this._headers,
-    });
+        method: 'DELETE',
+        headers: this._headers,
+      })
+      .then(res => this._checkResult(res));
   }
 
   likeHandler(id, status) {
@@ -63,16 +60,17 @@ export default class Api {
         method: !status ? 'PUT' : 'DELETE',
         headers: this._headers,
       })
-      .then(res => this._resultCheck(res));
+      .then(res => this._checkResult(res));
   }
 
   changeUserAvatar(picture) {
     return fetch(`${this._url}/users/me/avatar`, {
-      method: 'PATCH',
-      headers: this._headers,
-      body: JSON.stringify({
-        avatar: picture
+        method: 'PATCH',
+        headers: this._headers,
+        body: JSON.stringify({
+          avatar: picture
+        })
       })
-    });
+      .then(res => this._checkResult(res));
   }
 }
