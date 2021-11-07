@@ -53,11 +53,10 @@ const handleCardClick = (title, image) => {
   popupImage.open(title, image);
 };
 
-const popupAddCard = new PopupWithForm(addPopUp, () => {
-  const data = popupAddCard._getInputValues();
+const popupAddCard = new PopupWithForm(addPopUp, (inputsData) => {
   const buttonInitialText = submitButton(popupAddCard).textContent;
   renderLoading(submitButton(popupAddCard), buttonInitialText, true);
-  api.addCard(data)
+  api.addCard(inputsData)
     .then(res => {
       return createCard(res);
     })
@@ -68,8 +67,8 @@ const popupAddCard = new PopupWithForm(addPopUp, () => {
     .then(res => {
       popupAddCard.close();
     })
-    .finally(res => renderLoading(submitButton(popupAddCard), buttonInitialText, false))
     .catch(err => console.log(err))
+    .finally(res => renderLoading(submitButton(popupAddCard), buttonInitialText, false))
 });
 popupAddCard.setEventListeners();
 
@@ -147,39 +146,36 @@ editAvatarButton.addEventListener('click', (evt) => {
   popupAvatar.open();
 });
 
-const popupAvatar = new PopupWithForm(editAvatarPopUp, () => {
-  const inputUserAvatar = popupAvatar._getInputValues().avatar;
+const popupAvatar = new PopupWithForm(editAvatarPopUp, (inputsData) => {
   const buttonInitialText = submitButton(popupAvatar).textContent;
   renderLoading(submitButton(popupAvatar), buttonInitialText, true);
-  api.changeUserAvatar(inputUserAvatar)
+  api.changeUserAvatar(inputsData.avatar)
     .then(res => {
-      profileInfo.avatar.src = inputUserAvatar
+      profileInfo.avatar.src = inputsData.avatar
     })
     .then(res => {
       popupAvatar.close();
     })
-    .finally(res => renderLoading(submitButton(popupAvatar), buttonInitialText, false))
-    .catch(err => console.log(err));
+    .catch(err => console.log(err))
+    .finally(res => renderLoading(submitButton(popupAvatar), buttonInitialText, false));
 });
 popupAvatar.setEventListeners();
 
-const popupEditProfile = new PopupWithForm(editPopUp, () => {
-  const inputUserInfo = popupEditProfile._getInputValues();
-
+const popupEditProfile = new PopupWithForm(editPopUp, (inputsData) => {
   const buttonInitialText = submitButton(popupEditProfile).textContent;
   renderLoading(submitButton(popupEditProfile), buttonInitialText, true);
-  api.setUserInfo(inputUserInfo).then(res => {
+  api.setUserInfo(inputsData).then(res => {
       userInfo.setUserInfo({
-        name: inputUserInfo.name,
-        about: inputUserInfo.about,
+        name: inputsData.name,
+        about: inputsData.about,
         avatar: profileInfo.avatar.src
       });
     })
     .then(res => {
       popupEditProfile.close();
     })
-    .finally(res => renderLoading(submitButton(popupEditProfile), buttonInitialText, false))
-    .catch(err => console.log(err));
+    .catch(err => console.log(err))
+    .finally(res => renderLoading(submitButton(popupEditProfile), buttonInitialText, false));
 });
 popupEditProfile.setEventListeners();
 //

@@ -30,8 +30,17 @@ export default class PopupWithForm extends Popup {
   setEventListeners() {
     super.setEventListeners();
     // было //
-    this._form.addEventListener('submit', this._submitCallback);
+
+    //this._form.addEventListener('submit', this._submitCallback);
+
     // но нужно //
-    //this._form.addEventListener('submit', this._submitCallback(this._getInputValues)); //ну тогда нарушается последовательность в Callback Queue и в результат _getInputValues() попадет объект с пустыми свойствами. Или я не знаю как правильно аргумент в параметр сделать
+
+    //   this._form.addEventListener('submit', this._submitCallback(this._getInputValues())).
+
+    // надеюсь я это решил верно () => //
+    // вроде работает //
+    this._form.addEventListener('submit', () => {
+      this._submitCallback(this._getInputValues())
+    });
   }
 }
